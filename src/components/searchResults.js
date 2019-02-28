@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 
 class SearchResults extends Component{
-
+    
     render() {
+        let poster = "/placeholder.jpg";
 
         let shows = this.props.searchResults.map((object)=>{
-            return <p key={object.show.id}>{object.show.name} </p>
+            console.log(object.show.image.medium)
+            if (object.show.image.medium!==null){
+                poster=object.show.image.medium
+            } 
+            return(
+                <div className="singleResult">
+                    <img src={poster} alt={object.show.name} onError={() => { console.log('error') }}/>
+                    <button onClick={this.props.addToFavorites} name="addFav">+</button>
+                </div>
+            ) 
           })
 
         return(
-            <div>
+            <div className="posterImage">
             {shows}
             </div>
         )

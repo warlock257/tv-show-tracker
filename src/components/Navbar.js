@@ -6,12 +6,12 @@ class Navbar extends Component {
     return (
       <nav className="navbar">
 
-          <h2>MY SHOWS</h2>
+          <h2>SHOWSRCHR</h2>
 
         
         <div className="search-container">
-          <form action="/search-results">
-            <input type="text" placeholder="Search.." name="search"/>
+          <form onSubmit={this.props.searchForShow}>
+            <input type="text" placeholder="Search.." name="search" id="searchBar"/>
             <button type="submit">Submit</button>
           </form>
         </div>
