@@ -1,0 +1,32 @@
+$primary-nav: #101c28;
+$text-color: #222f3f;
+$search-bar: #adc4d6;
+$background: #e8f1f8;
+$border: #f80652;
+
+body{
+  margin:0;
+  padding:0;
+}
+
+.navbar{
+  height: 100px;
+  background: $primary-nav;
+  padding-top:2rem;
+  h2{
+    color:$background;
+    margin:0;
+  }
+}
+
+.search-container{
+  & > input{
+    width: 100%;
+    height: 3rem;
+    background-color: $background;
+    border: 1px solid $border;
+    border-radius: 5px;
+    text-indent: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}
