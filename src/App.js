@@ -5,14 +5,36 @@ import './main.scss'
 import ShowMain from './components/showMain'
 import Navbar from './components/Navbar';
 import SearchResults from './components/searchResults'
+import Favs from './components/favs'
 
 class App extends Component {
   constructor(){
     super()
+    this.searchRef = React.createRef();
     this.state = {
         searchResults: [],
         currentShow:{},
-        defaultSearch:"batman"
+        defaultSearch:"batman",
+        favourties:[{
+          id:"481",
+          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/3/9370.jpg"
+        },
+        {
+          id:"49",
+          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/177/444232.jpg"
+
+        },
+        {
+          id:"32335",
+          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/173/434759.jpg"
+
+        },
+        {
+          id:"17861",
+          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/149/373721.jpg"
+
+        }
+      ]
     }
 }
 
@@ -21,6 +43,7 @@ componentDidMount(){
 
     axios.get(`http://api.tvmaze.com/search/shows?q=${showSearch}`)
     .then((res) =>{
+
       this.setState({
         searchResults:res.data
       })
@@ -29,11 +52,17 @@ componentDidMount(){
       console.log(err)
     }) 
 }
-componentDidUpdate(){
+componentDidUpdate(prevProps, prevState){
+  let inputValue = this.searchRef.current;
+  console.log('input',inputValue);
+  console.log('prev props', prevProps)
+  console.log('state', this.state.defaultSearch);
   let showSearch = this.state.defaultSearch
   if (document.getElementById('searchBar').value !== this.state.defaultSearch){
+  // if (prevState !== this.state.defaultSearch){
     axios.get(`http://api.tvmaze.com/search/shows?q=${showSearch}`)
     .then((res) =>{
+      console.log(res.data)
       this.setState({
         searchResults:res.data
       })
@@ -74,7 +103,7 @@ componentDidUpdate(){
 
 searchForShow = (ev) =>{
   ev.preventDefault();
-  let searchStr = ev.target.search.value
+  let searchStr = ev.target.search.value;
   console.log(ev.target.search.value)
   this.setState({
     defaultSearch:searchStr
@@ -91,8 +120,9 @@ console.log("add fired")
     
     return (
       <div className="App">
-        <Navbar searchForShow={this.searchForShow} />
+        <Navbar searchForShow={this.searchForShow} searchRef={this.searchRef} />
         <SearchResults searchResults={this.state.searchResults} addToFavorites={this.addToFavorites}/>
+        <Favs favourties={this.state.favourties} />
       </div>
     );
   }

@@ -71,3 +71,40 @@ body{
     width:2rem;
   }
 }
+
+.favs{
+  height: 100%;
+  background-color: $primary-nav;
+  h2{
+    color:white;
+  }
+  .favImgs{
+    margin: 1rem;
+    flex-direction: column;
+    padding: 0;
+    height: 95%;
+    text-align: left;
+    display: flex;
+    img{
+      height: 80%;
+      border: 3px solid $border;
+      border-radius: 5px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.counter-wrap{
+  background: $primary-nav;
+  color: white;
+  display:flex;
+  justify-content: space-between;
+}
+
+.image-wrap{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+}

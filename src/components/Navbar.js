@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 
 class Navbar extends Component {
+
+ 
   render() {
     return (
       <nav className="navbar">
@@ -10,7 +12,7 @@ class Navbar extends Component {
 
         
         <div className="search-container">
-          <form onSubmit={this.props.searchForShow}>
+          <form onSubmit={this.props.searchForShow} ref={this.props.searchRef}>
             <input type="text" placeholder="Search.." name="search" id="searchBar"/>
             <button type="submit">Submit</button>
           </form>
