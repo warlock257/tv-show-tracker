@@ -11,9 +11,9 @@ class SearchResults extends Component{
                 poster=object.show.image.medium
             } 
             return(
-                <div className="singleResult" id={object.show.id}>
+                <div className="singleResult" >
                     <img src={poster} alt={object.show.name} />
-                    <button onClick={this.props.addToFavorites} name="addFav">+</button>
+                    <button onClick={this.props.addToFavorites} id={object.show.externals.tvrage} name="addFav">+</button>
                 </div>
             ) 
           })

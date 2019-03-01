@@ -8,15 +8,15 @@ let favMap = this.props.favourties.map((object) =>{
     return (
         
             <div className="favImgs" id={object.id}>
-                <img src={object.imgUrl} />
+                <img src={object.imgUrl} alt="show poster" />
                 <div className="counter-wrap">
                     <div className="season_wrap">
-                        <label for ="season">Season</label>
+                        <label htmlFor ="season">Season</label>
                         <input id ="season" type ="number"
                         min="1"max="100" step ="1" />
                     </div>
                         <div className="season_wrap">
-                        <label for ="episode">Episode</label>
+                        <label htmlFor ="episode">Episode</label>
                         <input id ="episode" type ="number" 
                         min="1"max="100" step ="1" />
                     </div>

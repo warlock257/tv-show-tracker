@@ -15,26 +15,7 @@ class App extends Component {
         searchResults: [],
         currentShow:{},
         defaultSearch:"batman",
-        favourties:[{
-          id:"481",
-          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/3/9370.jpg"
-        },
-        {
-          id:"49",
-          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/177/444232.jpg"
-
-        },
-        {
-          id:"32335",
-          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/173/434759.jpg"
-
-        },
-        {
-          id:"17861",
-          imgUrl:"http://static.tvmaze.com/uploads/images/medium_portrait/149/373721.jpg"
-
-        }
-      ]
+        favourties:[]
     }
 }
 
@@ -54,15 +35,13 @@ componentDidMount(){
 }
 componentDidUpdate(prevProps, prevState){
   let inputValue = this.searchRef.current;
-  console.log('input',inputValue);
-  console.log('prev props', prevProps)
-  console.log('state', this.state.defaultSearch);
+  //console.log('input',inputValue);
+  //console.log(prevProps)
+  //console.log('state', this.state.defaultSearch);
   let showSearch = this.state.defaultSearch
-  if (document.getElementById('searchBar').value !== this.state.defaultSearch){
-  // if (prevState !== this.state.defaultSearch){
+  if (prevProps !== showSearch){
     axios.get(`http://api.tvmaze.com/search/shows?q=${showSearch}`)
     .then((res) =>{
-      console.log(res.data)
       this.setState({
         searchResults:res.data
       })
@@ -74,33 +53,6 @@ componentDidUpdate(prevProps, prevState){
 }
 
 
-// getMainData =() => {
-//       let showName = this.state.defaultSearch
-// 
-//       axios.get(`http://api.tvmaze.com/singlesearch/shows?q=${showName}`)
-//       .then((res)=>{
-//           this.setState({
-//               currentShow:res.data
-//           })
-//       })
-//       .catch((err) =>{
-//           console.log(err)
-//       })
-// }
-
-// getSearchData = () =>{
-//     let showSearch = this.state.defaultSearch
-//     axios.get(`http://api.tvmaze.com/search/shows?q=${showSearch}`)
-//     .then((res) =>{
-//       this.setState({
-//         searchResults:res.data
-//       })
-//     })
-//     .catch((err)=>{
-//       console.log(err)
-//     }) 
-// }
-
 searchForShow = (ev) =>{
   ev.preventDefault();
   let searchStr = ev.target.search.value;
@@ -110,8 +62,27 @@ searchForShow = (ev) =>{
   })
 }
 
-addToFavorites = () =>{
-console.log("add fired")
+
+addToFavorites = (ev) =>{
+  let tvRageId = ev.target.id
+  axios.get(`http://api.tvmaze.com/lookup/shows?tvrage=${tvRageId}`)
+  .then((res) => {
+    let favId = res.data.id;
+    let favImg = res.data.image.medium
+    console.log(favId)
+    console.log(favImg)
+    let objToPush = {
+      id:favId,
+      imgUrl:favImg
+    }
+    this.setState({
+      favourties:[...this.state.favourties, objToPush]
+    })
+  })
+
+  .catch((err) =>{
+    console.log(err)
+  })
 }
 
 
